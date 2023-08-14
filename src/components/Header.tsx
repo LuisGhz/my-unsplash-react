@@ -2,6 +2,7 @@ import React from "react";
 import "./Header.css";
 import MyUnsplashLogo from "../assets/my_unsplash_logo.svg";
 import { AddPhoto } from "../modals/AddPhoto";
+import { ModalsContainer } from "../modals/ModalsContainer";
 
 export const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
@@ -19,7 +20,9 @@ export const Header = () => {
           />
         </section>
       </section>
-      <AddPhoto isAddPhotoModalOpen={isModalOpen} setIsAddPhotoModalOpen={setIsModalOpen} />
+      <ModalsContainer isModalOpen={isModalOpen}>
+        <AddPhoto setIsModalOpen={setIsModalOpen} />
+      </ModalsContainer>
       <button
         className="header__add-btn"
         type="button"

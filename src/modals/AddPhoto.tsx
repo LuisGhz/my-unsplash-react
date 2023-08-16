@@ -36,7 +36,7 @@ export const AddPhoto = ({ setIsModalOpen }: AddPhotoProps) => {
   };
 
   return (
-    <main className="main">
+    <main>
       <section className="modal">
         <h1 className="modal__title">Add a new photo</h1>
         {errorResponse && (

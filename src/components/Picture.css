@@ -1,0 +1,87 @@
+.picture {
+  position: relative;
+  display: block;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.picture__img {
+  width: 100%;
+  border-radius: 10px;
+  /* For some reason all pictures are higher than images by 5px */
+  margin-bottom: -5px; 
+}
+
+.picture__backdrop {
+  position: absolute;
+  background-color: rgb(0 0 0 / 0.4);
+  z-index: 1;
+  width: 0;
+  height: 0;
+  top: 0;
+  border-radius: 10px;
+
+  transition-delay: .3s, 0.8s;
+  transition-duration: 0.3s, 0s;
+  transition-timing-function: ease-in-out, linear;
+  transition-property: height, width;
+}
+
+.picture__label {
+  position: absolute;
+  bottom: 30px;
+  left: -100%;
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-wrap: wrap;
+  width: 90%;
+  z-index: 2;
+  margin: 0;
+
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+  transition-property: left;  
+}
+
+.picture__delete-btn {
+  border: 1px solid red;
+  border-radius: 10px;
+  background: transparent;
+  color: red;
+  width: 5rem;
+  cursor: pointer;
+  position: absolute;
+  z-index: 2;
+  right: -100%;
+  top: 10px;
+
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+  transition-property: right;
+}
+
+.picture:hover .picture__backdrop {
+  width: 100%;
+  height: 100%;
+  transition-delay: .1s;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+  transition-property: height;
+}
+
+.picture:hover .picture__label {
+  left: 10px;
+  transition-delay: .7s;
+  transition-duration: 0.4s;
+  transition-timing-function: ease-in-out;
+  transition-property: left;
+}
+
+.picture:hover .picture__delete-btn {
+  right: 10px;
+  transition-delay: .7s;
+  transition-duration: 0.4s;
+  transition-timing-function: ease-in-out;
+  transition-property: right;
+}

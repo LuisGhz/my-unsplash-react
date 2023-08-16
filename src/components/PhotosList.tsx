@@ -1,6 +1,7 @@
 import React from "react";
 import "./PhotosList.css";
 import { Photo } from "../models/Photo";
+import { Picture } from "./Picture";
 
 type PhotosListProps = {
   photos: Photo[];
@@ -27,41 +28,26 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
   }, [photosColumns]);
 
   return (
-    <main className="main">
-      <div className="column">
+    <main className="photos-list">
+      <div>
         {photosColumns &&
           photosColumns.length > 0 &&
           photosColumns[0].map((photo, idx) => {
-            return (
-              <picture className="picture" key={idx}>
-                <img className="picture__img" src={photo.url} alt={photo.label} />
-                <p>{photo.label}</p>
-              </picture>
-            );
+            return <Picture photo={photo} key={idx} />;
           })}
       </div>
       <div>
         {photosColumns &&
           photosColumns[1]?.length > 0 &&
           photosColumns[1].map((photo, idx) => {
-            return (
-              <picture className="picture" key={idx}>
-                <img className="picture__img" src={photo.url} alt={photo.label} />
-                <p>{photo.label}</p>
-              </picture>
-            );
+            return <Picture photo={photo} key={idx} />;
           })}
       </div>
       <div>
         {photosColumns &&
           photosColumns[2]?.length > 0 &&
           photosColumns[2].map((photo, idx) => {
-            return (
-              <picture className="picture" key={idx}>
-                <img className="picture__img" src={photo.url} alt={photo.label} />
-                <p>{photo.label}</p>
-              </picture>
-            );
+            return <Picture photo={photo} key={idx} />;
           })}
       </div>
     </main>

@@ -1,0 +1,30 @@
+.container {
+  margin: 0 auto;
+  max-width: 1400px;
+  padding: 0 3rem;
+  width: 100%;
+}
+
+.not-found-message {
+  text-align: center;
+  font-size: 2rem;
+  color: var(--gray-1);
+}
+
+.fetch-error-message {
+  text-align: center;
+  font-size: 2rem;
+  color: red;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .container {
+    padding: 0;
+  }
+}

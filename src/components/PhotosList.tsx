@@ -21,11 +21,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
     }, []);
 
     setPhotosColumns(photosColumns);
-  }, []);
-
-  React.useEffect(() => {
-    console.log(photosColumns);
-  }, [photosColumns]);
+  }, [photos]);
 
   return (
     <main className="photos-list">

@@ -39,6 +39,10 @@ html, body {
   --gray-1: #BDBDBD;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 #root {
   min-height: 100%;
 }

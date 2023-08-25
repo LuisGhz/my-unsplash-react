@@ -43,11 +43,12 @@ export const Header = ({ onSearch }: HeaderProps) => {
         <AddPhoto setIsModalOpen={setIsModalOpen} />
       </ModalsContainer>
       <button
-        className="header__add-btn"
+        className="add-btn"
         type="button"
         onClick={() => setIsModalOpen((prev) => !prev)}
       >
-        Add a photo
+        <span className="add-btn__text">Add a photo</span>
+        <span className="add-btn__icon">+</span>
       </button>
     </header>
   );

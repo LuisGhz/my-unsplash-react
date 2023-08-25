@@ -24,6 +24,7 @@ export const ModalsContainer = ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        zIndex: '3',
       }}
     >
       {children}

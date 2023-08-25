@@ -79,3 +79,25 @@
 .m-bottom {
   margin-block-end: 15px;
 }
+
+@media screen and (max-width: 375px) {
+  .modal {
+    width: 340px;
+    padding: 10px 30px;
+  }
+
+  .modal__input {
+    width: 280px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .modal {
+    width: 300px;
+    padding: 10px 30px;
+  }
+
+  .modal__input {
+    width: 240px;
+  }
+}

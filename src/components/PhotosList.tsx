@@ -9,19 +9,35 @@ type PhotosListProps = {
 
 export const PhotosList = ({ photos }: PhotosListProps) => {
   const [photosColumns, setPhotosColumns] = React.useState<Photo[][]>([]);
+  const [numberOfColumns, setNumberOfColumns] = React.useState<number>(3);
+
+  const changeColumnsOnResize = () => {
+    if (window.innerWidth < 600) {
+      setNumberOfColumns(1);
+    } else if (window.innerWidth < 900) {
+      setNumberOfColumns(2);
+    } else {
+      setNumberOfColumns(3);
+    }
+  };
+
+  React.useEffect(() => {
+    window.addEventListener("resize", changeColumnsOnResize);
+
+    return () => window.removeEventListener("resize", changeColumnsOnResize);
+  }, []);
 
   React.useEffect(() => {
     if (photos.length === 0) return;
-    const COLUMNS = 3;
 
     const photosColumns = photos.reduce<Photo[][]>((acc, photo, idx) => {
-      const columnIdx = idx % COLUMNS;
+      const columnIdx = idx % numberOfColumns;
       acc[columnIdx] = [...(acc[columnIdx] || []), photo];
       return acc;
     }, []);
 
     setPhotosColumns(photosColumns);
-  }, [photos]);
+  }, [photos, numberOfColumns]);
 
   return (
     <main className="photos-list">

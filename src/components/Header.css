@@ -37,14 +37,47 @@
   outline: none;
 }
 
-
-
-.header__add-btn {
+.add-btn {
   background-color: #3db46d;
-  color: white;
-  filter: drop-shadow(0px 4px 10px rgba(61, 180, 109, 0.2));
-  border: 0;
   border-radius: 8px;
-  padding: 6px 12px;
+  border: 0;
+  color: white;
   cursor: pointer;
+  filter: drop-shadow(0px 4px 10px rgba(61, 180, 109, 0.2));
+  height: 36px;
+  width: 100px;
+}
+
+.add-btn__icon {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    padding: 10px 5px;
+  }
+
+  .logo {
+    width: 25px;
+    height: 30px;
+    object-fit: none;
+    object-position: 0;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .add-btn {
+    width: 36px;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  .add-btn__text {
+    display: none;
+  }
+
+  .add-btn__icon {
+    display: block;
+  }
 }

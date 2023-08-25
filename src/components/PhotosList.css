@@ -4,3 +4,15 @@
   gap: 1rem;
   padding: 2rem 0;
 }
+
+@media screen and (max-width: 900px) {
+  .photos-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .photos-list {
+    grid-template-columns: 1fr;
+  }
+}

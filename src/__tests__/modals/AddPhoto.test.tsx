@@ -27,8 +27,8 @@ describe("AddPhoto", () => {
     await userEvent.type(label, "a");
     await userEvent.type(url, "a");
     userEvent.click(submit);
-    screen.findByText(/Label must be between 5 and 20 characters/i);
-    screen.findByText(/Url is invalid/i);
+    await screen.findByText(/Label must be between 5 and 20 characters/i);
+    await screen.findByText(/Url is invalid/i);
   });
 
   it("should not submit with emtpy data ", async () => {
@@ -46,8 +46,8 @@ describe("AddPhoto", () => {
     render(<AddPhoto setIsModalOpen={setIsAddPhotoModalOpen} />);
     const submit = screen.getByRole("button", { name: /submit/i });
     userEvent.click(submit);
-    screen.findByText(/Label cannot be empty/i);
-    screen.findByText(/Url is invalid/i);
+    await screen.findByText(/Label cannot be empty/i);
+    await screen.findByText(/Url is invalid/i);
   });
 
   it("should submit with valid data", async () => {

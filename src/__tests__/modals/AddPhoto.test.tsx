@@ -13,6 +13,11 @@ describe("AddPhoto", () => {
       createPhoto: vi.fn(),
       errorResponse: undefined,
       createState: "initial",
+      newPhoto: {
+        label: "12345",
+        url: "https://www.example.com",
+        createdAt: new Date(),
+      },
     });
 
     render(<AddPhoto setIsModalOpen={setIsAddPhotoModalOpen} />);
@@ -32,6 +37,11 @@ describe("AddPhoto", () => {
       createPhoto: vi.fn(),
       errorResponse: undefined,
       createState: "initial",
+      newPhoto: {
+        label: "12345",
+        url: "https://www.example.com",
+        createdAt: new Date(),
+      },
     });
     render(<AddPhoto setIsModalOpen={setIsAddPhotoModalOpen} />);
     const submit = screen.getByRole("button", { name: /submit/i });
@@ -46,6 +56,11 @@ describe("AddPhoto", () => {
       createPhoto: mock,
       errorResponse: undefined,
       createState: "initial",
+      newPhoto: {
+        label: "12345",
+        url: "https://www.example.com",
+        createdAt: new Date(),
+      },
     });
     const setIsAddPhotoModalOpen = vi.fn();
     render(<AddPhoto setIsModalOpen={setIsAddPhotoModalOpen} />);

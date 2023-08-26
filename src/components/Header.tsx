@@ -20,10 +20,15 @@ export const Header = () => {
     }, 500);
   }, [inputValue]);
 
+  const toggleDarkMode = () => {
+    const body = document.querySelector("body");
+    body?.classList.toggle("dark-mode");
+  };
+
   return (
     <header className="header">
       <section className="logo-search">
-        <img className="logo" src={MyUnsplashLogo} alt="My unsplash logo" />
+        <img className="logo" src={MyUnsplashLogo} alt="My unsplash logo" onClick={toggleDarkMode} />
         <section className="search">
           <span className="search__icon material-icons">search</span>
           <input

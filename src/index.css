@@ -35,7 +35,13 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-:root {
+body {
+  --bg-1: white;
+  --gray-1: #BDBDBD;
+}
+
+body.dark-mode {
+  --bg-1: #292929;
   --gray-1: #BDBDBD;
 }
 
@@ -45,4 +51,6 @@ html, body {
 
 #root {
   min-height: 100%;
+  background-color: var(--bg-1);
+
 }

@@ -10,7 +10,7 @@ export const useGetPhotos = () => {
     setLoading(true);
     let url = "http://localhost:3000/";
 
-    if (searchText !== "") {
+    if (searchText.trim() !== "") {
       url = `${url}?query=${searchText}`;
     }
     let response;

@@ -8,7 +8,6 @@ import { AppContext, AppContextType } from "../context/AppContext";
 export const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
-  const [searchValue, setSearchValue] = React.useState("");
   const timeOut = React.useRef<NodeJS.Timeout>();
   const { setLabelToSearch }: AppContextType = React.useContext(
     AppContext
@@ -17,13 +16,9 @@ export const Header = () => {
   React.useEffect(() => {
     clearTimeout(timeOut.current);
     timeOut.current = setTimeout(() => {
-      setSearchValue(inputValue);
+      setLabelToSearch(inputValue);
     }, 500);
   }, [inputValue]);
-
-  React.useEffect(() => {
-    setLabelToSearch(searchValue);
-  }, [searchValue]);
 
   return (
     <header className="header">

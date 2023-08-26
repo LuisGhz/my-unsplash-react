@@ -7,9 +7,10 @@ import { AppContext, AppContextType } from "../context/AppContext";
 type Picture = {
   photo: Photo;
   onError?: () => void;
+  onLoaded?: () => void;
 };
 
-export const Picture = ({ photo, onError }: Picture) => {
+export const Picture = ({ photo, onError, onLoaded }: Picture) => {
   const { setDeletedPhotoId } = React.useContext(
     AppContext
   ) as unknown as AppContextType;
@@ -25,6 +26,7 @@ export const Picture = ({ photo, onError }: Picture) => {
         src={photo.url}
         alt={photo.label}
         onError={onError}
+        onLoad={onLoaded}
       />
       <div className="picture__backdrop"></div>
       <p className="picture__label">{photo.label}</p>

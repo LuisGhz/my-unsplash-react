@@ -10,7 +10,7 @@ type PhotosListProps = {
 export const PhotosList = ({ photos }: PhotosListProps) => {
   const [photosColumns, setPhotosColumns] = React.useState<Photo[][]>([]);
   const [numberOfColumns, setNumberOfColumns] = React.useState<number>(3);
-  const [urlsWithErrors, setUrlsWithErrors] = React.useState<string[]>([]);
+  const [photosWithErrors, setPhotosWithErrors] = React.useState<string[]>([]);
 
   const changeColumnsOnResize = () => {
     if (window.innerWidth < 600) {
@@ -37,7 +37,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
     });
 
     tempPhotos = tempPhotos.filter((photo) => {
-      return !urlsWithErrors.includes(photo.url);
+      return !photosWithErrors.includes(photo._id);
     });
 
     const photosColumns = tempPhotos.reduce<Photo[][]>((acc, photo, idx) => {
@@ -47,10 +47,10 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
     }, []);
 
     setPhotosColumns(photosColumns);
-  }, [photos, numberOfColumns, urlsWithErrors]);
+  }, [photos, numberOfColumns, photosWithErrors]);
 
-  const removeNotLoadedPhoto = (url: string) => {
-    setUrlsWithErrors([...urlsWithErrors, url])
+  const removeNotLoadedPhoto = (id: string) => {
+    setPhotosWithErrors([...photosWithErrors, id])
   };
 
   return (
@@ -63,7 +63,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
               <Picture
                 photo={photo}
                 key={idx}
-                onError={() => removeNotLoadedPhoto(photo.url)}
+                onError={() => removeNotLoadedPhoto(photo._id)}
               />
             );
           })}
@@ -76,7 +76,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
               <Picture
                 photo={photo}
                 key={idx}
-                onError={() => removeNotLoadedPhoto(photo.url)}
+                onError={() => removeNotLoadedPhoto(photo._id)}
               />
             );
           })}
@@ -89,7 +89,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
               <Picture
                 photo={photo}
                 key={idx}
-                onError={() => removeNotLoadedPhoto(photo.url)}
+                onError={() => removeNotLoadedPhoto(photo._id)}
               />
             );
           })}

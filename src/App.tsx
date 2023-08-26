@@ -9,7 +9,7 @@ import { Photo } from "./models/Photo";
 function App() {
   const [photosList, setPhotosList] = React.useState<Photo[]>([]);
   const { getPhotos, response, error } = useGetPhotos();
-  const { labelToSearch, addedPhoto } = React.useContext(
+  const { labelToSearch, addedPhoto, deletedPhotoId } = React.useContext(
     AppContext
   ) as unknown as AppContextType;
 
@@ -24,6 +24,12 @@ function App() {
   React.useEffect(() => {
     if (addedPhoto) setPhotosList((prev) => [addedPhoto, ...prev]);
   }, [addedPhoto]);
+
+  React.useEffect(() => {
+    setPhotosList((prev) =>
+      prev.filter((photo) => photo._id !== deletedPhotoId)
+    );
+  }, [deletedPhotoId]);
 
   return (
     <main className="container">

@@ -24,6 +24,7 @@
 
 .search .search__input {
   border: none;
+  background-color: var(--bg-1);
   color: var(--gray-1);
   font-family: Noto Sans;
   font-size: 14px;

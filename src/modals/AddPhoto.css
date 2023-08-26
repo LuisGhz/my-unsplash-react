@@ -1,11 +1,11 @@
 .modal {
-  background: white;
+  background: var(--bg-1);
   border-radius: 12px;
   padding: 10px 40px;
 }
 
 .modal__title {
-  color: #333;
+  color: var(--gray-1);
   font-family: Noto Sans;
   font-size: 24px;
   font-style: normal;
@@ -16,7 +16,7 @@
 .modal__label {
   display: block;
   margin-block-end: 5px;
-  color: #4f4f4f;
+  color: var(--gray-1);
   font-family: Noto Sans;
   font-size: 14px;
   font-style: normal;
@@ -27,7 +27,8 @@
 .modal__input {
   width: 300px;
   border-radius: 12px;
-  border: 1px solid black;
+  background-color: var(--bg-1);
+  border: 1px solid var(--gray-1);
   padding: 13px;
 }
 

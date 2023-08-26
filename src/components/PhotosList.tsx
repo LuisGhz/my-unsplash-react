@@ -11,6 +11,26 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
   const [photosColumns, setPhotosColumns] = React.useState<Photo[][]>([]);
   const [numberOfColumns, setNumberOfColumns] = React.useState<number>(3);
   const [photosWithErrors, setPhotosWithErrors] = React.useState<string[]>([]);
+  const [totalPhotosLoaded, setTotalPhotosLoaded] = React.useState<number>(0);
+
+  React.useEffect(() => {
+    changeColumnsOnResize();
+    window.addEventListener("resize", changeColumnsOnResize);
+
+    return () => window.removeEventListener("resize", changeColumnsOnResize);
+  }, []);
+
+  React.useEffect(() => {
+    if (photos.length === 0) return;
+    handleLoadedPhotos();
+  }, [photos, numberOfColumns]);
+
+  React.useEffect(() => {
+    if (photosWithErrors.length === 0) return;
+    if ((totalPhotosLoaded + photosWithErrors.length) === photos.length) {
+      handleLoadedPhotos();
+    }
+  }, [totalPhotosLoaded, photosWithErrors.length]);
 
   const changeColumnsOnResize = () => {
     if (window.innerWidth < 600) {
@@ -22,20 +42,10 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
     }
   };
 
-  React.useEffect(() => {
-    changeColumnsOnResize();
-    window.addEventListener("resize", changeColumnsOnResize);
-
-    return () => window.removeEventListener("resize", changeColumnsOnResize);
-  }, []);
-
-  React.useEffect(() => {
-    if (photos.length === 0) return;
-
+  const handleLoadedPhotos = () => {
     let tempPhotos = photos.sort((a, b) => {
       return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
     });
-
     tempPhotos = tempPhotos.filter((photo) => {
       return !photosWithErrors.includes(photo._id);
     });
@@ -47,11 +57,15 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
     }, []);
 
     setPhotosColumns(photosColumns);
-  }, [photos, numberOfColumns, photosWithErrors]);
+  }
 
   const removeNotLoadedPhoto = (id: string) => {
-    setPhotosWithErrors([...photosWithErrors, id])
+    setPhotosWithErrors(prev => [...prev, id])
   };
+
+  const registerLoaded = () => {
+    setTotalPhotosLoaded(prev => prev + 1);
+  }
 
   return (
     <main className="photos-list">
@@ -64,6 +78,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
                 photo={photo}
                 key={idx}
                 onError={() => removeNotLoadedPhoto(photo._id)}
+                onLoaded={() => registerLoaded()}
               />
             );
           })}
@@ -77,9 +92,10 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
                 photo={photo}
                 key={idx}
                 onError={() => removeNotLoadedPhoto(photo._id)}
-              />
-            );
-          })}
+                onLoaded={() => registerLoaded()}
+                />
+                );
+              })}
       </div>
       <div>
         {photosColumns &&
@@ -90,6 +106,7 @@ export const PhotosList = ({ photos }: PhotosListProps) => {
                 photo={photo}
                 key={idx}
                 onError={() => removeNotLoadedPhoto(photo._id)}
+                onLoaded={() => registerLoaded()}
               />
             );
           })}

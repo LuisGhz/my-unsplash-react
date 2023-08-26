@@ -2,21 +2,19 @@ import React from "react";
 import "./AddPhoto.css";
 import { useValidateAddPhotoForm } from "../hooks/useValidateAddPhotoForm";
 import useCreatePhoto from "../hooks/useCreatePhoto";
+import { AppContext, AppContextType } from "../context/AppContext";
 
 type AddPhotoProps = {
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const AddPhoto = ({ setIsModalOpen }: AddPhotoProps) => {
+  const { setAddedPhoto } = React.useContext(AppContext) as unknown as AppContextType;
   const [isLabelEmpty, setIsLabelEmpty] = React.useState(false);
   const [isLabelInvalid, setIsLabelInvalid] = React.useState(false);
   const [isUrlInvalid, setIsUrlInvalid] = React.useState(false);
   const { isNotBlank, isValidLabel, isValidUrl } = useValidateAddPhotoForm();
-  const { createPhoto, errorResponse } = useCreatePhoto({
-    onCreated: () => {
-      setIsModalOpen((prev) => !prev);
-    },
-  });
+  const { createPhoto, createState, errorResponse, newPhoto } = useCreatePhoto();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,6 +32,16 @@ export const AddPhoto = ({ setIsModalOpen }: AddPhotoProps) => {
       formData.get("url") as string
     );
   };
+
+  React.useEffect(() => {
+    if (createState === "success") {
+      setAddedPhoto(newPhoto!);
+      setIsModalOpen((prev) => !prev);
+    }
+    if (createState === "error") {
+      setIsModalOpen((prev) => !prev);
+    }
+  }, [createState]);
 
   return (
     <main>
@@ -54,10 +62,10 @@ export const AddPhoto = ({ setIsModalOpen }: AddPhotoProps) => {
             Label
           </label>
           <input
-            className={
-              ['modal__input',
-              !isLabelEmpty && !isLabelInvalid && 'modal__input--valid',].join(' ')
-            }
+            className={[
+              "modal__input",
+              !isLabelEmpty && !isLabelInvalid && "modal__input--valid",
+            ].join(" ")}
             type="text"
             id="label"
             name="label"
@@ -75,16 +83,18 @@ export const AddPhoto = ({ setIsModalOpen }: AddPhotoProps) => {
             Photo url
           </label>
           <input
-            className={
-              ['modal__input',
-              !isUrlInvalid && 'modal__input--valid',].join(' ')
-            }
+            className={[
+              "modal__input",
+              !isUrlInvalid && "modal__input--valid",
+            ].join(" ")}
             type="text"
             id="url"
             name="url"
             placeholder="https://www.example.com"
           />
-          {isUrlInvalid && <p className="modal__error m-bottom">Url is invalid</p>}
+          {isUrlInvalid && (
+            <p className="modal__error m-bottom">Url is invalid</p>
+          )}
           <div className="btns">
             <button
               className="btns__cancel"

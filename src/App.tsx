@@ -3,24 +3,38 @@ import "./App.css";
 import { Header } from "./components/Header";
 import { useGetPhotos } from "./hooks/useGetPhotos";
 import { PhotosList } from "./components/PhotosList";
+import { AppContext, AppContextType } from "./context/AppContext";
+import { Photo } from "./models/Photo";
 
 function App() {
+  const [photosList, setPhotosList] = React.useState<Photo[]>([]);
   const { getPhotos, response, error } = useGetPhotos();
+  const { labelToSearch, addedPhoto } = React.useContext(
+    AppContext
+  ) as unknown as AppContextType;
 
   React.useEffect(() => {
-    getPhotos();
-  }, []);
+    getPhotos(labelToSearch);
+  }, [labelToSearch]);
 
-  const onSearch = (searchText: string) => {
-    getPhotos(searchText);
-  };
+  React.useEffect(() => {
+    if (response) setPhotosList(response);
+  }, [response]);
+
+  React.useEffect(() => {
+    if (addedPhoto) setPhotosList((prev) => [addedPhoto, ...prev]);
+  }, [addedPhoto]);
 
   return (
     <main className="container">
-      <Header onSearch={onSearch} />
-        {response && <PhotosList photos={response} />}
-        {response && response.length === 0 && <p className="not-found-message">No photos found</p>}
-        {error && <p className="fetch-error-message">{error}</p>}
+      <Header />
+      {photosList && photosList.length > 0 && (
+        <PhotosList photos={photosList} />
+      )}
+      {photosList && photosList.length === 0 && (
+        <p className="not-found-message">No photos found</p>
+      )}
+      {error && <p className="fetch-error-message">{error}</p>}
     </main>
   );
 }

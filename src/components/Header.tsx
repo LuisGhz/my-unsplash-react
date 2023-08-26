@@ -3,27 +3,22 @@ import "./Header.css";
 import MyUnsplashLogo from "../assets/my_unsplash_logo.svg";
 import { AddPhoto } from "../modals/AddPhoto";
 import { ModalsContainer } from "../modals/ModalsContainer";
+import { AppContext, AppContextType } from "../context/AppContext";
 
-type HeaderProps = {
-  onSearch: (value: string) => void;
-};
-
-export const Header = ({ onSearch }: HeaderProps) => {
+export const Header = () => {
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [inputValue, setInputValue] = React.useState("");
-  const [searchValue, setSearchValue] = React.useState("");
   const timeOut = React.useRef<NodeJS.Timeout>();
+  const { setLabelToSearch }: AppContextType = React.useContext(
+    AppContext
+  ) as unknown as AppContextType;
 
   React.useEffect(() => {
     clearTimeout(timeOut.current);
     timeOut.current = setTimeout(() => {
-      setSearchValue(inputValue);
+      setLabelToSearch(inputValue);
     }, 500);
   }, [inputValue]);
-
-  React.useEffect(() => {
-    onSearch(searchValue);
-  }, [searchValue]);
 
   return (
     <header className="header">
@@ -35,7 +30,7 @@ export const Header = ({ onSearch }: HeaderProps) => {
             className="search__input"
             type="text"
             placeholder="Search by name"
-            onChange={e => setInputValue(e.target.value)}
+            onChange={(e) => setInputValue(e.target.value)}
           />
         </section>
       </section>

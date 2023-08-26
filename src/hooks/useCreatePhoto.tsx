@@ -1,13 +1,11 @@
 import React from "react";
 import { ErrorResponse } from "../models/ErrorResponse";
+import { Photo } from "../models/Photo";
 
-type useCreatePhotoProps = {
-  onCreated: () => void;
-}
-
-export const useCreatePhoto = ({ onCreated }: useCreatePhotoProps) => {
+export const useCreatePhoto = () => {
   const [createState, setCreateState] = React.useState<'initial' | 'loading' | 'error' | 'success'>();
   const [errorResponse, setErrorResponse] = React.useState<ErrorResponse>();
+  const [newPhoto, setNewPhoto] = React.useState<Photo>();
 
   const createPhoto = async (label: string, url: string) => {
     try {
@@ -22,14 +20,14 @@ export const useCreatePhoto = ({ onCreated }: useCreatePhotoProps) => {
         }),
       });
 
-      if (res.ok) {
-        setCreateState("success");
-        onCreated();
+      if (!res.ok) {
+        const data: ErrorResponse = await res.json();
+        setErrorResponse(data);
         return;
       }
-
-      const data: ErrorResponse = await res.json();
-      setErrorResponse(data);
+      const data: Photo = await res.json();
+      setNewPhoto(data);
+      setCreateState("success");
     } catch {
       setCreateState("error");
       setErrorResponse({ message: ["Something went wrong"] });
@@ -39,6 +37,7 @@ export const useCreatePhoto = ({ onCreated }: useCreatePhotoProps) => {
   return {
     createPhoto,
     errorResponse,
+    newPhoto,
     createState,
   }
 };

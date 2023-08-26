@@ -4,6 +4,10 @@
   padding: 10px 0;
 }
 
+.dark-mode .logo {
+  filter: invert(1);
+}
+
 .logo-search {
   align-items: center;
   display: flex;
